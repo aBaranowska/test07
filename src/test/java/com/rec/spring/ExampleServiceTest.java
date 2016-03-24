@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
@@ -31,10 +32,9 @@ public class ExampleServiceTest {
 		assertEquals(HELLO_WORLD, bean.getMessage());
 	}
 
-	@Test
+	@Test(expected = NoSuchBeanDefinitionException.class)
 	public void getBean02() {
-		Service bean = context.getBean("exampleServiceBean", Service.class);
-		assertEquals(HELLO_WORLD, bean.getMessage());
+		context.getBean("exampleServiceBean", Service.class);
 	}
 
 	@Test
